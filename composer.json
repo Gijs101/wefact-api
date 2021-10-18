@@ -1,0 +1,58 @@
+{
+    "name": "101media/wefact-api",
+    "description": "A Laravel wrapper for the HostFact / WeFact API",
+    "keywords": [
+        "101media",
+        "api",
+        "laravel",
+        "hostfact",
+        "wefact"
+    ],
+    "version": "1.0.0",
+    "homepage": "https://github.com/101media/wefact-api",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tom Hermsen",
+            "email": "tom@101media.nl",
+            "homepage": "https://101media.nl",
+            "role": "Back-end developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "laravel/framework": "~5.8.0|^6.0|^7.0|^8.0",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "php-coveralls/php-coveralls": "^2.4",
+        "orchestra/testbench": "~3.8.0|^4.0|^5.0|^6.0",
+        "phpunit/phpunit": "^8.0|^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Media101\\WeFactApi\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Media101\\WeFactApi\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Media101\\WeFactApi\\WeFactApiServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
