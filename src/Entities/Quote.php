@@ -28,7 +28,7 @@ class Quote extends BaseEntity
             'PriceQuoteLines' => $quoteLines
         ]);
 
-        if (!isset($res['pricequoteline']) || $res['status'] !== 'success') {
+        if (!isset($res['pricequote']) || $res['status'] !== 'success') {
             throw new ApiException($res);
         }
 
@@ -54,7 +54,7 @@ class Quote extends BaseEntity
             'PriceQuoteLines' => $quoteLines
         ]);
 
-        if (!isset($res['pricequoteline']) || $res['status'] !== 'success') {
+        if (!isset($res['pricequote']) || $res['status'] !== 'success') {
             throw new ApiException($res);
         }
 
