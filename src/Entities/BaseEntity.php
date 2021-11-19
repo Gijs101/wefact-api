@@ -21,7 +21,9 @@ abstract class BaseEntity
     /**
      * Instantiate a new called class object.
      * When passing ID, this will automatically assign a new object instance.
+     *
      * @param int|null $Identifier
+     *
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
      * @throws \Media101\WeFactApi\Exceptions\ApiException
@@ -48,7 +50,9 @@ abstract class BaseEntity
 
     /**
      * Set class attributes.
+     *
      * @param array $params
+     *
      * @return $this
      */
     public function set(array $params): self
@@ -63,7 +67,9 @@ abstract class BaseEntity
 
     /**
      * List objects
+     *
      * @param array $params
+     *
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
@@ -72,14 +78,10 @@ abstract class BaseEntity
     public function list(array $params = []): mixed
     {
         $res = $this->request(array_merge($params, [
-            'action' => 'list'
+            'action' => 'list',
         ]));
 
         $key = Str::plural($this->controller);
-
-        if (!isset($res[$key])) {
-            throw new ApiException($res);
-        }
 
         return $res[$key];
     }
@@ -87,7 +89,9 @@ abstract class BaseEntity
 
     /**
      * Try to find the object and set class to object.
+     *
      * @param $code
+     *
      * @return mixed
      */
     public static function find($code): mixed
@@ -98,7 +102,9 @@ abstract class BaseEntity
 
     /**
      * Get and return the object
+     *
      * @param $code
+     *
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
@@ -107,14 +113,16 @@ abstract class BaseEntity
     private function show($code): mixed
     {
         return $this->request([
-            'action' => 'show',
-            'Identifier' => $code
-        ]);
+                                  'action'     => 'show',
+                                  'Identifier' => $code,
+                              ]);
     }
 
     /**
      * Create a new object in WeFact / HostFact and return new instantiated class
+     *
      * @param $data
+     *
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
@@ -126,7 +134,7 @@ abstract class BaseEntity
 
         $obj = $this->request(array_merge($data, [
             'controller' => $this->controller,
-            'action' => 'add',
+            'action'     => 'add',
         ]));
 
         if (isset($obj[$this->controller]['Identifier']) && $obj[$this->controller]['Identifier']) {
@@ -138,7 +146,9 @@ abstract class BaseEntity
 
     /**
      * Write changed to WeFact / HostFact
+     *
      * @param array $data
+     *
      * @return $this
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
@@ -147,7 +157,7 @@ abstract class BaseEntity
     private function edit(array $data = []): self
     {
         $obj = $this->request(array_merge($data, [
-            'action' => 'edit',
+            'action'     => 'edit',
             'controller' => $this->controller,
             'Identifier' => $this->Identifier,
         ]));
@@ -157,6 +167,7 @@ abstract class BaseEntity
 
     /**
      * Save current class variables to object.
+     *
      * @return $this
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException|\Media101\WeFactApi\Exceptions\ApiException
@@ -171,6 +182,7 @@ abstract class BaseEntity
 
     /**
      * Remove current entity.
+     *
      * @return bool
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
@@ -179,9 +191,9 @@ abstract class BaseEntity
     public function delete(): bool
     {
         $this->request([
-            'action' => 'delete',
-            'Identifier' => $this->Identifier
-        ]);
+                           'action'     => 'delete',
+                           'Identifier' => $this->Identifier,
+                       ]);
 
         foreach (get_object_vars($this) as $var) {
             unset($this->$var);
@@ -192,6 +204,7 @@ abstract class BaseEntity
 
     /**
      * Send request to WeFact / HostFact API.
+     *
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
      * @throws \Media101\WeFactApi\Exceptions\ApiException
@@ -204,8 +217,8 @@ abstract class BaseEntity
 
         $res = $this->client->post('', [
             'form_params' => array_merge([
-                'api_key' => config('wefact.key', ''),
-            ], $params)
+                                             'api_key' => config('wefact.key', ''),
+                                         ], $params),
         ]);
 
         $res = json_decode($res->getBody(), true, 1024, JSON_THROW_ON_ERROR);
