@@ -43,6 +43,7 @@ abstract class BaseEntity
                 throw new ApiException($res);
             }
 
+
             $this->set($res[$this->controller]);
         }
 
@@ -83,7 +84,7 @@ abstract class BaseEntity
 
         $key = Str::plural($this->controller);
 
-        return $res[$key];
+        return $res[$key] ?? [];
     }
 
 
